@@ -1,17 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar color="dark">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="no-scroll">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-md-4 ></ion-col>
+            <ion-col col-12 col-md-6>
+                <img class="profile-picture" src="assets/imgs/logoVermelho3.jpg"/>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+                <ion-card>
+                    <ion-list>
+                        <button ion-item (click)="abrePagina('novoAluno')">
+                        <ion-icon name="person-add" item-start></ion-icon>
+                        Novo Aluno
+                        </button>
+                    </ion-list>
+                </ion-card>
+                <ion-card>
+                    <ion-list>
+                        <button ion-item (click)="abrePagina('pesquisaAluno')">
+                        <ion-icon name="search" item-start></ion-icon>
+                        Pesquisar Aluno
+                        </button>
+                    </ion-list>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        
+    </ion-grid>   
 </ion-content>

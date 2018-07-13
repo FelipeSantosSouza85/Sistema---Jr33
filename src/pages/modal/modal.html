@@ -1,0 +1,33 @@
+
+<ion-header>
+
+    <ion-navbar color="secondary">
+      <ion-title style="text-align:center">Resultado da Pesquisa</ion-title>
+      <ion-buttons end>
+      <button ion-button (click)="closeModal()">Fechar</button>
+      </ion-buttons>
+  </ion-navbar>
+    
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+      <ion-card-header style="text-align:center; color: #32db64;">
+          Alunos Encontrados
+      </ion-card-header>
+      <ion-card-content>
+          <ion-list *ngFor="let aluno of listaAlunos">
+              <ion-item>
+                <h2>{{ aluno.nome }}</h2>
+                <h2>CPF: {{ aluno.cpf }}</h2>
+                <p>{{ aluno.logradouro }}</p>
+                <p>{{ aluno.bairro }} - {{ aluno.cidade }} - {{ aluno.estado }} - {{ aluno.cep }}</p>
+                <p>{{ aluno.email }}</p>
+                <button ion-button block color="secondary" (click)="selecionaAluno(aluno)">
+                    Selecionar
+                  </button>
+              </ion-item>
+            </ion-list>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

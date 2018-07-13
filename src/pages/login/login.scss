@@ -1,0 +1,30 @@
+page-login {
+
+    
+        .centralizar {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      
+
+       
+    
+    .profile-picture {
+        border-radius: 50%;
+        width: 50%;
+    }
+
+    .list-header-md {
+        padding-left: 16px;
+        margin-bottom: 13px;
+        min-height: 4.5rem;
+        border-top: 0;
+        font-size: 1.4rem;
+        color: #757575;
+    }
+
+    
+}

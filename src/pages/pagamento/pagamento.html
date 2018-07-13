@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center">Realizar Pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form (ngSubmit)="salvarPagamento()">
+        <ion-grid>
+            <ion-row>
+              <ion-col col-md-3 ></ion-col>
+              <ion-col col-12 col-md-6>
+                <ion-item no-lines>
+                  <h2 text-nowrap>{{ pagamento.nomeAluno }}</h2>
+                  <h3 text-nowrap>CPF: {{ pagamento.cpfAluno }}</h3>
+                </ion-item>
+                <ion-item>
+                  <ion-label stacked>Produto</ion-label>
+                  <ion-select [(ngModel)]="pagamento.tipoPagamento" name="tipoPagamento" (ionChange)="selecionaProduto($event)">
+                    <ion-option value ="">Selecione</ion-option>
+                    <ion-option *ngFor="let produto of produtos" [value] = "produto.tipo">{{ produto.descricao }}</ion-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item [class.hide]="!exibeMes">
+                  <ion-label stacked>Mês</ion-label>
+                  <ion-select [(ngModel)]="pagamento.mesPagamento" name="mes" (ionChange)="selecionaMes($event)">
+                    <ion-option *ngFor="let mes of meses" [value] = "mes.codigo">{{ mes.descricao }}</ion-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item >
+                  <ion-label stacked>Valor R$</ion-label>
+                  <ion-input [(ngModel)]="valorProduto" name="valorProduto"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label stacked>Forma de Pagamento</ion-label>
+                  <ion-select [(ngModel)]="formaPagamento" name="formaPagamento">
+                    <ion-option value ="c">Cartão</ion-option>
+                    <ion-option value ="d">Dinheiro</ion-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item no-lines >
+                    <button icon-start block ion-button color="secondary">
+                        <ion-icon name="logo-usd"></ion-icon>
+                        Pagar
+                    </button>
+                </ion-item>
+                
+              </ion-col>
+            </ion-row>  
+      </ion-grid> 
+    </form>
+</ion-content>

@@ -1,0 +1,370 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center">Pesquisa de Alunos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-md-3 ></ion-col>
+                <ion-col col-12 col-md-6>
+                    
+                        <ion-label style="text-align:center;">
+                            Dados para Pesquisa
+                        </ion-label>
+                        
+                            <ion-item>
+                              <ion-label stacked>Nome:</ion-label>
+                              <ion-input [(ngModel)]="nome" name="nome"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label stacked>CPF:</ion-label>
+                                <ion-input [(ngModel)]="cpf" name="cpf"></ion-input>
+                            </ion-item>
+                                <ion-row>
+                                  <ion-col width-50 style="text-align: center">
+                                    <button icon-start ion-button color="dark" (click)="pesquisaAluno()">
+                                      <ion-icon name="search"></ion-icon>
+                                      Pesquisar
+                                    </button>
+                                  </ion-col>
+                                </ion-row>
+                            
+                            <ion-item no-lines [class.hide]="!temAluno">
+                                <ion-card>
+                                    <ion-card-header style="text-align: center">
+                                      Dados do Aluno
+                                    </ion-card-header>
+                                    <ion-item>
+                                        
+                                        <h2 text-nowrap>{{ alunoSelecionado.nome }}</h2>
+                                        <h3 text-nowrap>CPF: {{ alunoSelecionado.cpf }}</h3>
+                                        <p text-nowrap>{{ alunoSelecionado.logradouro }}</p>
+                                        <p text-nowrap>{{ alunoSelecionado.bairro }} - {{ alunoSelecionado.cidade }} - {{ alunoSelecionado.estado }} </p>
+                                        <p text-nowrap>CEP: {{ alunoSelecionado.cep }}</p>
+                                        <p text-nowrap>{{ alunoSelecionado.email }}</p>
+                                        <p text-nowrap>Dia de Vencimento: {{ alunoSelecionado.diaVencMensalidade }}</p>
+                                      </ion-item>
+                                      <ion-row>
+                                          <ion-col style="text-align: left">
+                                            <button ion-button icon-left clear small color="primary" (click)="realizarPagamento()">
+                                                <ion-icon name="create"></ion-icon>
+                                                <div>Editar</div>
+                                            </button>
+                                          </ion-col>
+                                          <ion-col style="text-align: right">
+                                            <button ion-button icon-left clear small color="danger" (click)="realizarPagamento()">
+                                                <ion-icon name="trash"></ion-icon>
+                                                <div>Excluir</div>
+                                            </button>
+                                          </ion-col>
+                                      </ion-row>
+                                </ion-card>
+                            </ion-item>
+                            <ion-item no-lines [class.hide]="!temAluno">
+                                <button icon-start block ion-button color="secondary" (click)="realizarPagamento()">
+                                    <ion-icon name="logo-usd"></ion-icon>
+                                    Informar Pagamento
+                                </button>
+                            </ion-item>
+                            
+                </ion-col>
+                <ion-col col-md-3 ></ion-col>
+                <ion-col col-md-3 ></ion-col>
+                <ion-col [class.hide]="!temAluno" col-12 col-md-6>
+                    
+                                  <ion-list style="margin-top: 10px;"  no-border>
+                                      <ion-list-header>
+                                        <ion-label style="font-weight: bold">
+                                          Janeiro
+                                        </ion-label> 
+                                      </ion-list-header>
+                                          <ion-item no-lines [ngSwitch]="pagouJaneiro">
+                                              <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                              <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                                Pago
+                                              </ion-note>
+                                              <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                              <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                                Em Aberto
+                                              </ion-note>
+                                              <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                              <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                                Não Vencido
+                                              </ion-note>
+                                              <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                              <ion-note *ngSwitchCase="'s'" item-start>
+                                                Não Matriculado
+                                              </ion-note>
+                                          </ion-item>
+                                  </ion-list>
+                                <ion-list style="margin-top: 10px;"  no-border>
+                                  <ion-list-header>
+                                      Fevereiro
+                                  </ion-list-header>
+                                      <ion-item no-lines [ngSwitch]="pagouFevereiro">
+                                        <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                        <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                          Pago
+                                        </ion-note>
+                                        <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                        <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                          Em Aberto
+                                        </ion-note>
+                                        <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                        <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                          Não Vencido
+                                        </ion-note>
+                                        <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                        <ion-note *ngSwitchCase="'s'" item-start>
+                                          Não Matriculado
+                                        </ion-note>
+                                      </ion-item>
+                              </ion-list>
+                              <ion-list style="margin-top: 10px;"  no-border>
+                                <ion-list-header>
+                                    Março
+                                </ion-list-header>
+                                    <ion-item no-lines [ngSwitch]="pagouMarco">
+                                      <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                      <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                        Pago
+                                      </ion-note>
+                                      <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                      <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                        Em Aberto
+                                      </ion-note>
+                                      <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                      <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                        Não Vencido
+                                      </ion-note>
+                                      <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                      <ion-note *ngSwitchCase="'s'" item-start>
+                                        Não Matriculado
+                                      </ion-note>
+                                    </ion-item>
+                            </ion-list>
+                            <ion-list style="margin-top: 10px;"  no-border>
+                              <ion-list-header>
+                                  Abril
+                              </ion-list-header>
+                                  <ion-item no-lines [ngSwitch]="pagouAbril">
+                                    <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                    <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                      Pago
+                                    </ion-note>
+                                    <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                    <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                      Em Aberto
+                                    </ion-note>
+                                    <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                    <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                      Não Vencido
+                                    </ion-note>
+                                    <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                    <ion-note *ngSwitchCase="'s'" item-start>
+                                      Não Matriculado
+                                    </ion-note>
+                                  </ion-item>
+                          </ion-list>
+                          <ion-list style="margin-top: 10px;"  no-border>
+                            <ion-list-header>
+                                Maio
+                            </ion-list-header>
+                                <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouMaio">
+                                  <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                    Pago
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                    Em Aberto
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                    Não Vencido
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'s'" item-start>
+                                    Não Matriculado
+                                  </ion-note>
+                                </ion-item>
+                        </ion-list>
+                        <ion-list style="margin-top: 10px;"  no-border>
+                          <ion-list-header>
+                              Junho
+                          </ion-list-header>
+                              <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouJunho">
+                                <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                  Pago
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                  Em Aberto
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                  Não Vencido
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'s'" item-start>
+                                  Não Matriculado
+                                </ion-note>
+                              </ion-item>
+                          </ion-list>
+                          <ion-list style="margin-top: 10px;"  no-border>
+                            <ion-list-header>
+                                Julho
+                            </ion-list-header>
+                                <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouJulho">
+                                  <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                    Pago
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                    Em Aberto
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                    Não Vencido
+                                  </ion-note>
+                                  <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                  <ion-note *ngSwitchCase="'s'" item-start>
+                                    Não Matriculado
+                                  </ion-note>
+                                </ion-item>
+                        </ion-list>
+                        <ion-list style="margin-top: 10px;"  no-border>
+                          <ion-list-header>
+                              Agosto
+                          </ion-list-header>
+                              <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouAgosto">
+                                <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                  Pago
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                  Em Aberto
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                  Não Vencido
+                                </ion-note>
+                                <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                                <ion-note *ngSwitchCase="'s'" item-start>
+                                  Não Matriculado
+                                </ion-note>
+                              </ion-item>
+                      </ion-list>
+                      <ion-list style="margin-top: 10px;" no-border>
+                        <ion-list-header>
+                            Setembro
+                        </ion-list-header>
+                            <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouSetembro">
+                              <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                              <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                                Pago
+                              </ion-note>
+                              <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                              <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                                Em Aberto
+                              </ion-note>
+                              <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                              <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                                Não Vencido
+                              </ion-note>
+                              <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                              <ion-note *ngSwitchCase="'s'" item-start>
+                                Não Matriculado
+                              </ion-note>
+                            </ion-item>
+                    </ion-list>        
+                    <ion-list style="margin-top: 10px;" no-border>
+                      <ion-list-header>
+                          Outubro
+                      </ion-list-header>
+                          <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouOutubro">
+                            <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                            <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                              Pago
+                            </ion-note>
+                            <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                            <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                              Em Aberto
+                            </ion-note>
+                            <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                            <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                              Não Vencido
+                            </ion-note>
+                            <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                            <ion-note *ngSwitchCase="'s'" item-start>
+                              Não Matriculado
+                            </ion-note>
+                          </ion-item>
+                  </ion-list>
+                  <ion-list style="margin-top: 10px;" no-border>
+                    <ion-list-header>
+                        Novembro
+                    </ion-list-header>
+                        <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouNovembro">
+                          <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                            Pago
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                            Em Aberto
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                            Não Vencido
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'s'" item-start>
+                            Não Matriculado
+                          </ion-note>
+                        </ion-item>
+                  </ion-list>
+                  <ion-list style="margin-top: 10px;" no-border>
+                    <ion-list-header>
+                        Dezembro
+                    </ion-list-header>
+                        <ion-item no-lines style="margin-top: 10px;" [ngSwitch]="pagouDezembro">
+                          <ion-icon *ngSwitchCase="'p'" color="secondary" name='checkmark-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'p'" color="secondary" item-start>
+                            Pago
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'v'" color="danger" name='close-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'v'" color="danger" item-start>
+                            Em Aberto
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'n'" name="remove-circle" color="primary" item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'n'" color="primary" item-start>
+                            Não Vencido
+                          </ion-note>
+                          <ion-icon *ngSwitchCase="'s'" color="dark" name='help-circle' item-start></ion-icon>
+                          <ion-note *ngSwitchCase="'s'" item-start>
+                            Não Matriculado
+                          </ion-note>
+                        </ion-item>
+                  </ion-list>
+                </ion-col>
+                <ion-col col-md-3 ></ion-col>
+            </ion-row>
+        </ion-grid>
+        
+    </form>
+</ion-content>

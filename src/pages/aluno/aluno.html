@@ -1,0 +1,189 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center">Cadastro de Alunos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="salvarAluno()">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Nome:</ion-label>
+                <ion-input [(ngModel)]="aluno.nome" name="nome"></ion-input>
+                <ion-label [class.hide]="!exibeMsgNome" style="color: #ff0000; font-size: 12px;" >{{mensagemNome}}</ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-md-3 ></ion-col>
+          <ion-col col-12 col-md-6>
+            <ion-item>
+              <ion-label stacked>CPF:</ion-label>
+              <ion-input (ionBlur)="cpf = formatCpf(aluno.cpf)" [(ngModel)]="aluno.cpf" name="cpf"></ion-input>
+              <ion-label [class.hide]="!exibeMsgCpf" style="color: #ff0000; font-size: 12px;" >{{mensagemCpf}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col col-md-3 ></ion-col>
+        </ion-row> 
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Telefone Fixo:</ion-label>
+                <ion-input [(ngModel)]="aluno.telefoneFixo" max="13"  mask="(**)****-****" name="telefoneFixo"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>        
+              <ion-item>
+                <ion-label stacked>Celular:</ion-label>
+                <ion-input [(ngModel)]="aluno.telefoneCelular" max="14"  mask="(**)*****-****" name="telefoneCelular" ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item (click)="selecionaData()">
+                <ion-label stacked>Data de Nascimento:</ion-label>
+                <ion-datetime disabled="true" [(ngModel)]="aluno.dataNascimento" name="dataNascimento" displayFormat="DD/MM/YYYY"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>        
+              <ion-item>
+                <ion-label stacked>RG:</ion-label>
+                <ion-input [(ngModel)]="aluno.rg" name="rg"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-md-3 ></ion-col>
+          <ion-col col-12 col-md-6>
+            <ion-item>
+                <ion-label stacked>CEP:</ion-label>
+                <ion-input (focusout)="buscaEndereco($event)" max="9"  mask="*****-***"  [(ngModel)]="aluno.cep" name="cep"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>      
+              <ion-item>
+                  <ion-label stacked>Logradouro:</ion-label>
+                  <ion-input [(ngModel)]="aluno.logradouro" name="logradouro"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Bairro:</ion-label>
+                <ion-input [(ngModel)]="aluno.bairro" name="bairro"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Cidade:</ion-label>
+                <ion-input [(ngModel)]="aluno.cidade" name="cidade"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                  <ion-label stacked>Estado:</ion-label>
+                  <ion-input  [(ngModel)]="aluno.estado" name="estado"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Email:</ion-label>
+                <ion-input [(ngModel)]="aluno.email" name="email"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <ion-label stacked>Dia de vencimento:</ion-label>
+                <ion-select [(ngModel)]="aluno.diaVencMensalidade" interface="action-sheet" name="diaVencMensalidade" interface="popover">
+                  <ion-option value="5">Dia 05</ion-option>
+                  <ion-option value="10">Dia 10</ion-option>
+                  <ion-option value="15">Dia 15</ion-option>
+                  <ion-option value="20">Dia 20</ion-option>
+                  <ion-option value="25">Dia 25</ion-option>
+                  <ion-option value="30">Dia 30</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-md-3 ></ion-col>
+              <ion-col col-12 col-md-6> 
+                <ion-item>
+                  <ion-label stacked style="color:#999;">Pacote Família</ion-label>
+                  <ion-toggle #toggle color="dark" (ionChange)="exibe(toggle.checked)" ></ion-toggle>
+                </ion-item>
+              </ion-col>
+              <ion-col col-md-3 ></ion-col>
+          </ion-row>
+          <ion-row [class.hide]="!planoFamilia">
+            <ion-col col-md-3 ></ion-col>
+            <ion-col col-12 col-md-6> 
+              <ion-item>
+                <ion-label style="font-size: 1.6rem;" stacked>Observação:</ion-label>
+                <ion-input [(ngModel)]="aluno.observacao" name="email"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+        </ion-row>
+          <ion-row>
+              <ion-col col-md-3 ></ion-col>
+              <ion-col col-12 col-md-6>     
+                <button ion-button color="dark" block>
+                  Salvar Aluno
+                </button>
+            </ion-col>
+            <ion-col col-md-3 ></ion-col>
+          </ion-row>
+        </ion-grid> 
+    </form>
+
+</ion-content>
